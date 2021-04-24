@@ -2,7 +2,7 @@ import React from 'react';
 // import logo from './logo.svg';
 import './App.css';
 
-import {Route,Switch,Link}  from 'react-router-dom'
+import {Route,Switch,Redirect}  from 'react-router-dom'
 
 import HomePage from './pages/homepage/homepage.component'
 import ShopPage from "./pages/shop/shop.component";
@@ -99,10 +99,21 @@ componentWillUnmount() {
                     <Route exact path='/' component={HomePage}/>
                     {/*    <Route exact path='/' component={HomePageAlt}/>*/}
                     <Route exact path='/shop' component={ShopPage}/>
-                    <Route exact path='/signin' component={SignInAndSignUpPage}/>
-                    {/*    <Route  path='/hats/:hatId' component={HatsDetailPage}/>*/}
+                    {/*<Route exact path='/signin' component={SignInAndSignUpPage}/>*/}
+                    <Route
+                        exact
+                        path='/signin'
+                        render={()=>
+                            this.props.currentUser ? (
+                                <Redirect to='/' />
+                            ):(
+                                <SignInAndSignUpPage/>
+                            )
+                        }
+                    />
+
                 </Switch>
-                {/*<HomePage />*/}
+
             </div>
         );
     }
@@ -110,7 +121,10 @@ componentWillUnmount() {
 
 }
 
+const mapStateToProps = ({user}) => ({
+    currentUser:user.currentUser
+})
 const mapDispatchToProps = dispatch => ({
     setCurrentUser:user => dispatch(setCurrentUser(user))
 })
-export default connect(null,mapDispatchToProps)(App);
+export default connect(mapStateToProps,mapDispatchToProps)(App);
