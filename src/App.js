@@ -62,9 +62,9 @@ componentDidMount() {
                            ...snapshot.data()
                        }
                    }
-                   ,()=>{
-                       console.log('componentDidMount =>this.state',this.state);
-                   }
+                   // ,()=>{
+                   //     console.log('componentDidMount =>this.state',this.state);
+                   // }
                    );
 
                })
