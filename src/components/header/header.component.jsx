@@ -2,6 +2,10 @@ import React from "react";
 import {Link} from "react-router-dom"
 import './header.styles.scss';
 
+//connect  HO function to modify component to have access to redux
+import {connect} from "react-redux";
+
+
 import  {ReactComponent as Logo} from '../../assets/crown.svg'
 import {auth} from '../../firebase/firebase.utils'
 const Header = ({currentUser}) => (
@@ -29,5 +33,9 @@ const Header = ({currentUser}) => (
     </div>
 )
 
+// input  state=> rootReducer
+const mapStateToProps = state =>({
+currentUser:state.user.currentUser
+});
 
-export default Header;
+export default connect(mapStateToProps)(Header);

@@ -9,6 +9,10 @@ import ShopPage from "./pages/shop/shop.component";
 import Header from "./components/header/header.component";
 import {auth,createUserProfileDocument} from './firebase/firebase.utils';
 
+import {connect} from "react-redux";
+import {setCurrentUser} from "./redux/user/user.actions";
+
+
 import SignInAndSignUpPage from "./pages/sign-in-and-sign-up/sign-in-and-sign-up.component";
 // const HomePageAlt = (props) =>{
 //     console.log(props)
@@ -40,15 +44,18 @@ import SignInAndSignUpPage from "./pages/sign-in-and-sign-up/sign-in-and-sign-up
 
 class App extends React.Component {
 
-    constructor() {
-        super();
+    unsubscribeFromAuth = null;
 
-        this.state={
-            currentUser: null
-        };
-    }
+    // constructor() {
+    //     super();
+    //
+    //     this.state={
+    //         currentUser: null
+    //     };
+    // }
 
 componentDidMount() {
+    const {setCurrentUser} = this.props;
        this.unsubscribeFromAuth = auth.onAuthStateChanged(async userAuth=>{
             // console.dir(user);
            if(userAuth){
@@ -56,11 +63,11 @@ componentDidMount() {
 
                userRef.onSnapshot(snapshot => {
                    // console.log('componentDidMount => userRef.onSnapshot => snapshot',snapshot.data());
-                   this.setState({
-                       currentUser:{
+
+                   setCurrentUser({
+
                            id:snapshot.id,
                            ...snapshot.data()
-                       }
                    }
                    // ,()=>{
                    //     console.log('componentDidMount =>this.state',this.state);
@@ -69,7 +76,7 @@ componentDidMount() {
 
                })
            }else{
-               this.setState({currentUser:null});
+               setCurrentUser(userAuth);
            }
 
             // this.setState({currentUser:user})
@@ -81,12 +88,13 @@ componentWillUnmount() {
     this.unsubscribeFromAuth();
 }
 
-    unsubscribeFromAuth = null;
+
 
     render() {
         return (
             <div >
-                <Header currentUser={this.state.currentUser}></Header>
+                {/*<Header currentUser={this.state.currentUser}></Header>*/}
+                <Header></Header>
                 <Switch>
                     <Route exact path='/' component={HomePage}/>
                     {/*    <Route exact path='/' component={HomePageAlt}/>*/}
@@ -102,4 +110,7 @@ componentWillUnmount() {
 
 }
 
-export default App;
+const mapDispatchToProps = dispatch => ({
+    setCurrentUser:user => dispatch(setCurrentUser(user))
+})
+export default connect(null,mapDispatchToProps)(App);
