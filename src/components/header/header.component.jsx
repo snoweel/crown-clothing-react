@@ -4,11 +4,13 @@ import './header.styles.scss';
 
 //connect  HO function to modify component to have access to redux
 import {connect} from "react-redux";
+import CartIcon from "../cart-icon/cart-icon.component";
 
+import CartDropdown from "../cart-dropdown/cart-dropdown.component";
 
 import  {ReactComponent as Logo} from '../../assets/crown.svg'
 import {auth} from '../../firebase/firebase.utils'
-const Header = ({currentUser}) => (
+const Header = ({currentUser,hidden}) => (
     <div className='header'>
         <Link to="/" className='logo-container'>
             <Logo className='logo'></Logo>
@@ -22,20 +24,26 @@ const Header = ({currentUser}) => (
             </Link>
             {
                 currentUser ?
-                    <div className='option' onClick={()=>auth.signOut()}>
-                    SIGN OUT</div>
-                    :
+                    (<div className='option' onClick={()=>auth.signOut()}>
+                    SIGN OUT</div>)
+                    : (
                     <Link className='option' to="/signin" >
                         SIGN IN
-                    </Link>
+                    </Link> )
             }
+            <CartIcon />
         </div>
+        {
+            hidden ? null : <CartDropdown />
+        }
+
     </div>
 )
 
 // input  state=> rootReducer
-const mapStateToProps = state =>({
-currentUser:state.user.currentUser
+const mapStateToProps = ({user:{currentUser},cart:{hidden}}) =>({
+currentUser,
+    hidden
 });
 
 export default connect(mapStateToProps)(Header);
