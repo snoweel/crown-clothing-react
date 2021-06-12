@@ -22,11 +22,11 @@ const CollectionPreview = ({ title, items }) => (
         <div className='preview'>
             {items
                 .filter((item, idx) => idx < 4)
-                .map(({ id, ...otherItemProps }) =>{
+                .map(item =>{
                     // console.log('CollectionItem call');
                     // console.table({ id, ...otherItemProps });
                    return  (
-                        <CollectionItem key={id} {...otherItemProps} />
+                        <CollectionItem key={item.id} item={item} />
                     )
                 }
                 )}
