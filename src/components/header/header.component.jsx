@@ -4,9 +4,14 @@ import './header.styles.scss';
 
 //connect  HO function to modify component to have access to redux
 import {connect} from "react-redux";
+import {createStructuredSelector} from "reselect";
+
 import CartIcon from "../cart-icon/cart-icon.component";
 
 import CartDropdown from "../cart-dropdown/cart-dropdown.component";
+
+import {selectCartHidden} from "../../redux/cart/cart.selectors";
+import {selectCurrentUser} from "../../redux/user/user.selector";
 
 import  {ReactComponent as Logo} from '../../assets/crown.svg'
 import {auth} from '../../firebase/firebase.utils'
@@ -41,9 +46,9 @@ const Header = ({currentUser,hidden}) => (
 )
 
 // input  state=> rootReducer
-const mapStateToProps = ({user:{currentUser},cart:{hidden}}) =>({
-currentUser,
-    hidden
+const mapStateToProps = createStructuredSelector({
+currentUser:selectCurrentUser,
+    hidden:selectCartHidden
 });
 
 export default connect(mapStateToProps)(Header);
