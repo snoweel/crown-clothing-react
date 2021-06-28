@@ -19,6 +19,7 @@ import {selectCurrentUser} from "./redux/user/user.selector";
 
 
 import SignInAndSignUpPage from "./pages/sign-in-and-sign-up/sign-in-and-sign-up.component";
+import CategoryPage from "./pages/collection/collection.component";
 // const HomePageAlt = (props) =>{
 //     console.log(props)
 //   return(<div>
@@ -103,7 +104,8 @@ componentWillUnmount() {
                 <Switch>
                     <Route exact path='/' component={HomePage}/>
                     {/*    <Route exact path='/' component={HomePageAlt}/>*/}
-                    <Route exact path='/shop' component={ShopPage}/>
+                    <Route  path='/shop' component={ShopPage}/>
+                    {/*<Route exact path='/shop/jacket' component={CategoryPage}/>*/}
                     <Route exact path='/checkout' component={CheckoutPage}/>
                     {/*<Route exact path='/signin' component={SignInAndSignUpPage}/>*/}
                     <Route

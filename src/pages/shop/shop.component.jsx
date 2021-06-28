@@ -1,4 +1,6 @@
 import React from "react";
+import {Route} from "react-router-dom";
+
 // import SHOP_DATA from "./shop.data";
 
 import CollectionPreview from "../../components/collection-preview/collection-preview.component";
@@ -7,10 +9,14 @@ import {createStructuredSelector} from "reselect";
 
 import {selectCollections} from "../../redux/shop/shop.selector";
 import CollectionsOverview from "../../components/collections-overview/collections-overview.component";
-const  ShopPage = ({collections}) => (
+import CollectionPage from "../collection/collection.component";
+import {Router} from "workbox-routing";
+const  ShopPage = ({match}) => (
     <div className='shop-page'>
-        <CollectionsOverview/>
-
+        {/*<Router>*/}
+        <Route exact path={`${match.path}`} component={CollectionsOverview} />
+        <Route  path={`${match.path}/:collectionId`} component={CollectionPage} />
+        {/*</Router>*/}
     </div>
 );
 
