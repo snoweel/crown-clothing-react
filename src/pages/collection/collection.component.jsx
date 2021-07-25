@@ -10,7 +10,7 @@ import './collection.styles.scss'
 
 
 const CollectionPage = ({collection}) => {
-    console.dir(collection);
+    // console.dir(collection);
     // console.log(match.params.collectionId);
     const {title,items} = collection;
     return (

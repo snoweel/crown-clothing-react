@@ -18,6 +18,7 @@ import {selectCurrentUser} from "./redux/user/user.selector";
 
 
 
+
 import SignInAndSignUpPage from "./pages/sign-in-and-sign-up/sign-in-and-sign-up.component";
 import CategoryPage from "./pages/collection/collection.component";
 // const HomePageAlt = (props) =>{
@@ -83,6 +84,7 @@ componentDidMount() {
                })
            }else{
                setCurrentUser(userAuth);
+               // addCollectionsAndDocuments('collections',collectionsArray.map(({title,items})=>({title,items})));
            }
 
             // this.setState({currentUser:user})
