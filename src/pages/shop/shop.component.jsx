@@ -2,7 +2,7 @@ import React from "react";
 import {Route} from "react-router-dom";
 import {createStructuredSelector} from "reselect";
 import {selectIsCollectionsFetching, selectIsCollectionsLoaded} from "../../redux/shop/shop.selector";
-import {fetchCollectionsStartAsync} from "../../redux/shop/shop.actions";
+import {fetchCollectionsStart} from "../../redux/shop/shop.actions";
 import {firestore,convertCollectionsSnaphotToMap} from "../../firebase/firebase.utils";
 import WithSpinner from "../../components/with-spinner/with-spinner.component";
 
@@ -26,9 +26,9 @@ class  ShopPage extends  React.Component{
 
 
     componentDidMount() {
-        const {fetchCollectionsStartAsync} =this.props;
+        const {fetchCollectionsStart} =this.props;
         // console.log('fetchCollectionsStartAsync ca;;')
-        fetchCollectionsStartAsync();
+        fetchCollectionsStart();
 
     }
 
@@ -57,7 +57,7 @@ const mapStateToProps =createStructuredSelector(
     }
 )
 const mapDispatchToProps =dispatch =>({
-    fetchCollectionsStartAsync: ()=>dispatch(fetchCollectionsStartAsync())
+    fetchCollectionsStart: ()=>dispatch(fetchCollectionsStart())
     // updateCollections: collectionsMap =>dispatch(updateCollections(collectionsMap))
 })
 
